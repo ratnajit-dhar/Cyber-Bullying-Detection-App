@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberbullying Detection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fc;
+            background-image: url('https://www.transparenttextures.com/patterns/diagonal-stripes.png');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .navbar {
+            background: rgb(128, 187, 94);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 80px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .static-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #28a745;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-control {
+            height: 220px;
+            border: 2px solid #28a745;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .btn {
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .bullying {
+            background-color: #dc3545;
+        }
+
+        .non-bullying {
+            background-color: #28a745;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .navbar-nav li {
+            margin-left: 20px;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #28a745 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Cyberbullying Detection</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <div class="static-title">Cyberbullying Detection</div>
+        <form method="POST">
+            <div class="form-group">
+                <textarea name="text" class="form-control" rows="4" placeholder="Enter text to analyze...">{{ request.form['text'] if request.form['text'] else '' }}</textarea>
+
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Analyze</button>
+        </form>
+        {% if prediction is not none %}
+            <div class="result {% if prediction == 1 %}bullying{% else %}non-bullying{% endif %}">
+                {% if prediction == 1 %}
+                    Bullying Detected
+                {% else %}
+                    No Bullying Detected
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
